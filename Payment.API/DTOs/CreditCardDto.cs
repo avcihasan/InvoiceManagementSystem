@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
-namespace InvoiceManagementSystem.Application.DTOs.PaymentDTOs
+namespace Payment.API.DTOs
 {
     public class CreditCardDto
     {
+        public string Id { get; set; }
         public string CardType { get; set; }
         public string CardNumber { get; set; }
         public string ExpirationDate { get; set; }
         public string Cvv { get; set; }
+        [BsonRepresentation(BsonType.Decimal128)]
+        public decimal Balance { get; set; }
     }
 }

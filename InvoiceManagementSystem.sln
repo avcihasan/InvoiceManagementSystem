@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.Per
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.API", "Presentation\InvoiceManagementSystem.API\InvoiceManagementSystem.API.csproj", "{C02CCFC8-1252-4A1F-B720-0BF7DB066650}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment.API", "Payment.API\Payment.API.csproj", "{06726BF6-A30D-49D0-A6A7-E1BB42B763BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{C02CCFC8-1252-4A1F-B720-0BF7DB066650}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C02CCFC8-1252-4A1F-B720-0BF7DB066650}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C02CCFC8-1252-4A1F-B720-0BF7DB066650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06726BF6-A30D-49D0-A6A7-E1BB42B763BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06726BF6-A30D-49D0-A6A7-E1BB42B763BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06726BF6-A30D-49D0-A6A7-E1BB42B763BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06726BF6-A30D-49D0-A6A7-E1BB42B763BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

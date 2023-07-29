@@ -136,7 +136,8 @@ namespace InvoiceManagementSystem.Persistence.Services
                     TotalDebt = 0
                 };
                 x.Invoices.Where(x => x.Payment == false).ToList().ForEach(x => debt.TotalDebt += x.Price);
-                debtList.Add(debt);
+                if (debt.TotalDebt>0)
+                    debtList.Add(debt);
             });
 
             return debtList;
