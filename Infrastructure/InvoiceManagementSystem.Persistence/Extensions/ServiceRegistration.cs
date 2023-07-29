@@ -24,6 +24,7 @@ namespace InvoiceManagementSystem.Persistence.Extensions
             );
 
             service.AddScoped<IAdminService, AdminService>();
+            service.AddScoped<IUserService, UserService>();
             service.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

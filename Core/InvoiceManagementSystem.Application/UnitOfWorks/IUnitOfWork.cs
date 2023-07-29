@@ -13,6 +13,7 @@ namespace InvoiceManagementSystem.Application.UnitOfWorks
         public IApartmentRepository ApartmentRepository { get;}
         public IMessageRepository MessageRepository { get; }
         public IPaymentRepository PaymentRepository { get; }
+        public IInvoiceRepository InvoiceRepository { get; }
         void Save();
         Task SaveAsync();
     }
