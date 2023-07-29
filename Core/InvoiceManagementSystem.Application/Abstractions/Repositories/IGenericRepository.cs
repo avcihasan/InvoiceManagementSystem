@@ -1,10 +1,12 @@
 ﻿using InvoiceManagementSystem.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace InvoiceManagementSystem.Application.Abstractions.Repositories
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
+        public DbSet<T> Table { get; }
         Task<T> GetAsync(int id);
         Task<T> GetAsync(Expression<Func<T,bool>> func);
         IQueryable<T> GetAll();

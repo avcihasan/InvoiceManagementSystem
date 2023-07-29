@@ -8,9 +8,9 @@ namespace InvoiceManagementSystem.Domain.Entities
 {
     public class Invoice : BaseEntity
     {
-        public string Name { get; set; }
-        public decimal Amount { get; set; }
-        public AppUser User { get; set; }
+        public decimal Price { get; set; }
+        public bool Payment { get; set; }
+        public Apartment Apartment { get; set; }
 
     }
 }

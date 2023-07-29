@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace InvoiceManagementSystem.Domain.Entities
 {
-    public class Dues : BaseEntity
+    public class Payment:BaseEntity
     {
-        public decimal Amount { get; set; }
+        public Invoice Invoice { get; set; }
         public AppUser User { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using InvoiceManagementSystem.Application.DTOs.ApartmentDTOs;
+﻿    using InvoiceManagementSystem.Application.DTOs.ApartmentDTOs;
+using InvoiceManagementSystem.Application.DTOs.MessageDTOs;
+using InvoiceManagementSystem.Application.DTOs.PaymentDTOs;
 using InvoiceManagementSystem.Application.DTOs.UserDTOs;
 using System;
 using System.Collections.Generic;
@@ -18,9 +20,11 @@ namespace InvoiceManagementSystem.Application.Abstractions.Services
         Task<GetUserDto> CreateUserAsync(CreateUserDto userDto);
         Task<GetUserDto> UpdateUserAsync( UpdateUserDto userDto);
         Task DeleteUserAsync(string userId);
-        //Task CreateInvoiceAndDues(decimal amount);
-        //Task CreateInvoiceAndDues(string userId,decimal amount);
-        //Task GetPayments();
-        //Task GetMessages();
+        Task CreateInvoiceAsync(decimal invoicePrice);
+        Task CreateInvoiceAsync(int apartmentId, decimal invoicePrice);
+        Task<List<GetPaymentDto>> GetAllPaymentsAsync();
+        Task<List<GetMessageDto>> GetAllMessagesAsync();
+        Task<List<GetMessageDto>> GetAllMessagesAsync(bool read);
+        Task<List<DebtDto>> GetDebtListAsync();
     }
 }

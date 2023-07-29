@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using InvoiceManagementSystem.Application.Abstractions.Services;
 using InvoiceManagementSystem.Application.DTOs.ApartmentDTOs;
+using InvoiceManagementSystem.Application.DTOs.MessageDTOs;
+using InvoiceManagementSystem.Application.DTOs.PaymentDTOs;
 using InvoiceManagementSystem.Application.DTOs.UserDTOs;
 using InvoiceManagementSystem.Application.UnitOfWorks;
 using InvoiceManagementSystem.Domain.Entities;
@@ -35,6 +37,7 @@ namespace InvoiceManagementSystem.Persistence.Services
         {
             AppUser user = _mapper.Map<AppUser>(userDto);
             user.Id = Guid.NewGuid().ToString();
+            user.Apartments.Add(await _unitOfWork.ApartmentRepository.GetAsync(userDto.ApartmentId));
             IdentityResult result = await _userManager.CreateAsync(user, userDto.Password);
             if (!result.Succeeded)
                 throw new Exception("hata");
@@ -51,9 +54,7 @@ namespace InvoiceManagementSystem.Persistence.Services
 
         public async Task DeleteUserAsync(string userId)
         {
-            AppUser user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-                throw new Exception("hata");
+            AppUser user = await _userManager.FindByIdAsync(userId) ?? throw new Exception("hata");
             IdentityResult result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
                 throw new Exception("hata");
@@ -64,6 +65,11 @@ namespace InvoiceManagementSystem.Persistence.Services
 
         public async Task<List<GetUserDto>> GetAllUsersAsync()
             => _mapper.Map<List<GetUserDto>>(await _userManager.Users.ToListAsync());
+
+        public async Task<List<GetMessageDto>> GetAllMessagesAsync()
+            => _mapper.Map<List<GetMessageDto>>(await _unitOfWork.MessageRepository.GetAll().ToListAsync());
+        public async Task<List<GetMessageDto>> GetAllMessagesAsync(bool read)
+          => _mapper.Map<List<GetMessageDto>>(await _unitOfWork.MessageRepository.GetAll(x => x.Read == read).ToListAsync());
 
         public async Task<GetApartmentDto> UpdateApartmentAsync(UpdateApartmentDto apartmentDto)
         {
@@ -76,7 +82,7 @@ namespace InvoiceManagementSystem.Persistence.Services
 
         public async Task<GetUserDto> UpdateUserAsync(UpdateUserDto userDto)
         {
-            AppUser user =await _userManager.FindByIdAsync(userDto.Id);
+            AppUser user = await _userManager.FindByIdAsync(userDto.Id);
             user.TCNo = userDto.TCNo;
             user.Name = userDto.Name;
             user.Surname = userDto.Surname;
@@ -91,6 +97,49 @@ namespace InvoiceManagementSystem.Persistence.Services
 
             await _userManager.UpdateSecurityStampAsync(user);
             return _mapper.Map<GetUserDto>(userDto);
+        }
+
+        public async Task CreateInvoiceAsync(decimal invoicePrice)
+        {
+            (await _unitOfWork.ApartmentRepository.GetAll().ToListAsync()).ForEach(x => x.Invoices.Add(new() { Price = invoicePrice }));
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task CreateInvoiceAsync(int apartmentId, decimal invoicePrice)
+        {
+            Apartment apartment = await _unitOfWork.ApartmentRepository.GetAsync(apartmentId);
+            apartment.Invoices.Add(new() { Price = invoicePrice });
+
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<List<GetPaymentDto>> GetAllPaymentsAsync()
+        {
+            List<Payment> paymnets = await _unitOfWork.PaymentRepository.Table.Include(x=>x.Invoice).Include(x=>x.User).ToListAsync();
+            List<GetPaymentDto> getPaymentDtos = new();
+            paymnets.ForEach(x =>
+            {
+                getPaymentDtos.Add(new() { TotalPayment = x.Invoice.Price, User = _mapper.Map<GetUserDto>(x.User) });
+            });
+            return getPaymentDtos;
+        }
+
+        public async Task<List<DebtDto>> GetDebtListAsync()
+        {
+            List<DebtDto> debtList = new();
+
+            (await _unitOfWork.ApartmentRepository.Table.Include(x => x.User).Include(x => x.Invoices).ToListAsync()).ForEach(x =>
+            {
+                DebtDto debt = new()
+                {
+                    User = _mapper.Map<GetUserDto>(x.User),
+                    TotalDebt = 0
+                };
+                x.Invoices.Where(x => x.Payment == false).ToList().ForEach(x => debt.TotalDebt += x.Price);
+                debtList.Add(debt);
+            });
+
+            return debtList;
         }
     }
 }

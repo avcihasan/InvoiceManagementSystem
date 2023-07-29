@@ -11,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{DBBD576E-BBE0-4D34-983A-79196F3F3B0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceManagementSystem.Application", "Core\InvoiceManagementSystem.Application\InvoiceManagementSystem.Application.csproj", "{559127DF-1B29-42ED-B855-17C93EEB0A99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.Application", "Core\InvoiceManagementSystem.Application\InvoiceManagementSystem.Application.csproj", "{559127DF-1B29-42ED-B855-17C93EEB0A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceManagementSystem.Domain", "Core\InvoiceManagementSystem.Domain\InvoiceManagementSystem.Domain.csproj", "{268AE263-3F2B-4778-BDC7-29AA72F915A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.Domain", "Core\InvoiceManagementSystem.Domain\InvoiceManagementSystem.Domain.csproj", "{268AE263-3F2B-4778-BDC7-29AA72F915A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceManagementSystem.Infrastructure", "Infrastructure\InvoiceManagementSystem.Infrastructure\InvoiceManagementSystem.Infrastructure.csproj", "{5F92C5C0-0A69-40AA-B702-562D33BFCF3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.Infrastructure", "Infrastructure\InvoiceManagementSystem.Infrastructure\InvoiceManagementSystem.Infrastructure.csproj", "{5F92C5C0-0A69-40AA-B702-562D33BFCF3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceManagementSystem.Persistence", "Infrastructure\InvoiceManagementSystem.Persistence\InvoiceManagementSystem.Persistence.csproj", "{CCA6E440-D772-413C-80A6-7C6A46976A4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.Persistence", "Infrastructure\InvoiceManagementSystem.Persistence\InvoiceManagementSystem.Persistence.csproj", "{CCA6E440-D772-413C-80A6-7C6A46976A4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceManagementSystem.API", "Presentation\InvoiceManagementSystem.API\InvoiceManagementSystem.API.csproj", "{C02CCFC8-1252-4A1F-B720-0BF7DB066650}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceManagementSystem.API", "Presentation\InvoiceManagementSystem.API\InvoiceManagementSystem.API.csproj", "{C02CCFC8-1252-4A1F-B720-0BF7DB066650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

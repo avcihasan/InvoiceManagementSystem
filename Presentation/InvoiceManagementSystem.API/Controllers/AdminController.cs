@@ -23,18 +23,15 @@ namespace InvoiceManagementSystem.API.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateApartment([FromBody] CreateApartmentDto apartmentDto)
             => Ok(await _adminService.CreateApartmentAsync(apartmentDto));
-
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateApartment([FromBody] UpdateApartmentDto apartmentDto)
             => Ok(await _adminService.UpdateApartmentAsync(apartmentDto));
-
         [HttpDelete("[action]/{apartmentId}")]
         public async Task<IActionResult> DeleteApartment([FromRoute] int apartmentId)
         {
             await _adminService.DeleteApartmentAsync(apartmentId);
             return Ok();
         }
-
         [HttpGet("[action]")]
         public async Task<IActionResult> GetUsers()
           => Ok(await _adminService.GetAllUsersAsync());
@@ -52,6 +49,22 @@ namespace InvoiceManagementSystem.API.Controllers
             await _adminService.DeleteUserAsync(userId);
             return Ok();
         }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllMessages()
+         => Ok(await _adminService.GetAllMessagesAsync());
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> CreateInvoice(decimal invoicePrice)
+        {
+            await _adminService.CreateInvoiceAsync(invoicePrice);
+            return Ok();
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllPayments()
+            =>Ok(await _adminService.GetAllPaymentsAsync());
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetDebtList()
+            => Ok(await _adminService.GetDebtListAsync());
     }
 }

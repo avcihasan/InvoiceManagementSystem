@@ -14,6 +14,7 @@ namespace InvoiceManagementSystem.Persistence.Repositories
         {
             _dbSet = context.Set<T>();
         }
+        public DbSet<T> Table => _dbSet;
 
         public async Task<bool> CreateAsync(T entity)
         {

@@ -18,9 +18,13 @@ namespace InvoiceManagementSystem.Persistence.UnitOfWorks
         {
             _context = context;
             ApartmentRepository = new ApartmentRepository(context);
+            MessageRepository = new MessageRepository(context);
+            PaymentRepository = new PaymentRepository(context);
         }
 
         public IApartmentRepository ApartmentRepository { get; private set; }
+        public IMessageRepository MessageRepository { get; private set; }
+        public IPaymentRepository PaymentRepository { get; private set; }
 
         public void Save()
             => _context.SaveChanges();

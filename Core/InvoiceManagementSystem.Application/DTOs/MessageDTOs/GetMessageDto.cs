@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceManagementSystem.Domain.Entities
+namespace InvoiceManagementSystem.Application.DTOs.MessageDTOs
 {
-    public class Message : BaseEntity
+    public class GetMessageDto
     {
+        public int Id { get; set; }
         public string Body { get; set; }
         public bool Read { get; set; }
-
-        public AppUser User { get; set; }
     }
 }

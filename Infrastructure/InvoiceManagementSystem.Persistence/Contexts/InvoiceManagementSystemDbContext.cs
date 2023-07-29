@@ -11,8 +11,8 @@ namespace InvoiceManagementSystem.Persistence.Contexts
         }
 
         public DbSet<Apartment> Apartment { get; set; }
-        public DbSet<Dues> Dues { get; set; }
-        public DbSet<Invoice> Invoice { get; set; }
-        public DbSet<Message> Message { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using InvoiceManagementSystem.Application.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace InvoiceManagementSystem.Application.UnitOfWorks
     public interface  IUnitOfWork
     {
         public IApartmentRepository ApartmentRepository { get;}
+        public IMessageRepository MessageRepository { get; }
+        public IPaymentRepository PaymentRepository { get; }
         void Save();
         Task SaveAsync();
     }

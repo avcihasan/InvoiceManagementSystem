@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using InvoiceManagementSystem.Application.DTOs.ApartmentDTOs;
+using InvoiceManagementSystem.Application.DTOs.MessageDTOs;
+using InvoiceManagementSystem.Application.DTOs.PaymentDTOs;
 using InvoiceManagementSystem.Application.DTOs.UserDTOs;
 using InvoiceManagementSystem.Domain.Entities;
 using Microsoft.VisualBasic;
@@ -26,7 +28,10 @@ namespace InvoiceManagementSystem.Application.Mapping
             CreateMap<CreateUserDto, GetUserDto>();
             CreateMap<UpdateUserDto, AppUser>();
             CreateMap<UpdateUserDto, GetUserDto>();
-            CreateMap<AppUser, GetUserDto>();
+            CreateMap<AppUser, GetUserDto>(); 
+
+            CreateMap<Payment, GetPaymentDto>(); 
+            CreateMap<Message, GetMessageDto>(); 
         }
     }
 }
