@@ -35,6 +35,9 @@ namespace InvoiceManagementSystem.API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetUsers()
           => Ok(await _adminService.GetAllUsersAsync());
+        [HttpGet("[action]/{userId}")]
+        public async Task<IActionResult> GetUser([FromRoute]string userId)
+        => Ok(await _adminService.GetUserByIdAsync(userId));
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto userDto)
             => Ok(await _adminService.CreateUserAsync(userDto));

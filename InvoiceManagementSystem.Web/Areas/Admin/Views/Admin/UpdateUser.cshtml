@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateUser";
+}
+@model UpdateUserVM
+
+<div class="col-xl-10 offset-xl-1 col-xxl-10 offset-xcl-1 col-lg-10 offset-lg-1 ">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Horizontal Form</h4>
+        </div>
+        <div class="card-body">
+            <div class="basic-form">
+                <form asp-area="Admin" asp-controller="Admin" asp-action="UpdateUser" method="post">
+
+                    <div class="form-row">
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <div class="form-group col-md-6">
+                            <label for="name" asp-for="@Model.Name"></label>
+                            <input id="name" type="text" class="form-control" asp-for="@Model.Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="surname" asp-for="@Model.Surname"></label>
+                            <input id="nasurnameme" type="text" class="form-control" asp-for="@Model.Surname">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="tcno" asp-for="@Model.TCNo"></label>
+                            <input id="tcno" type="text" class="form-control" asp-for="@Model.TCNo">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="username" asp-for="@Model.UserName"></label>
+                            <input id="username" type="text" class="form-control" asp-for="@Model.UserName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email" asp-for="@Model.Email"></label>
+                            <input id="email" type="email" class="form-control" asp-for="@Model.Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone" asp-for="@Model.PhoneNumber"></label>
+                            <input id="phone" type="text" class="form-control" asp-for="@Model.PhoneNumber">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="car" asp-for="@Model.CarPlateNumber"></label>
+                            <input id="car" type="text" class="form-control" asp-for="@Model.CarPlateNumber">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 offset-md-5 text-center">
+                        <input type="submit" class="btn btn-primary" value="Kaydet">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

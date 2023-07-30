@@ -142,5 +142,8 @@ namespace InvoiceManagementSystem.Persistence.Services
 
             return debtList;
         }
+        public async Task<GetUserDto> GetUserByIdAsync(string userId)
+            => _mapper.Map<GetUserDto>(await _userManager.FindByIdAsync(userId));
+       
     }
 }
