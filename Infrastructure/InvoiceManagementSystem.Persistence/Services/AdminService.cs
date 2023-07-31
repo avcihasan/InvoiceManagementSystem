@@ -144,6 +144,8 @@ namespace InvoiceManagementSystem.Persistence.Services
         }
         public async Task<GetUserDto> GetUserByIdAsync(string userId)
             => _mapper.Map<GetUserDto>(await _userManager.FindByIdAsync(userId));
-       
+
+        public async Task<GetApartmentDto> GetApartmentByIdAsync(int apartmentId)
+            => _mapper.Map<GetApartmentDto>(await _unitOfWork.ApartmentRepository.GetAsync(apartmentId));
     }
 }

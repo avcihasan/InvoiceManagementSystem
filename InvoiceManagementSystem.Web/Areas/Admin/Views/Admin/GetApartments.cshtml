@@ -1,8 +1,9 @@
-﻿@{
-    ViewData["Title"] = "GetUsers";
+﻿
+@{
+    ViewData["Title"] = "GetApartments";
 }
 
-@model List<GetUserVM>
+@model List<GetApartmentVM>
 <div class="col-lg-12">
     <div class="row tab-content">
         <div id="list-view" class="tab-pane fade col-lg-12 active show">
@@ -19,27 +20,29 @@
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="#: activate to sort column descending" style="width: 54.725px;">#</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 180.438px;">Ad</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 171.675px;">Soyad</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 148.688px;">E-Posta</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 196.962px;">Telefon</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 180.438px;">FloorLocation</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 171.675px;">BlockNumber</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 148.688px;">ApartmentNumber</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 196.962px;">Situation</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 88.575px;">Tenant</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 88.575px;">Type</th>
                                         <th class="sorting" tabindex="0" aria-controls="example3" rowspan="1" colspan="1" style="width: 88.575px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    @foreach (var user in Model)
+                                    @foreach (var apartment in Model)
                                     {
                                         <tr role="row" class="odd">
                                             <td class="sorting_1"><img class="rounded-circle" width="35" src="~/images/profile/small/pic1.jpg" alt=""></td>
-                                            <td>@user.Name</td>
-                                            <td>@user.Surname</td>
-                                            <td><strong>@user.Email</strong></td>
-                                            <td><strong>@user.PhoneNumber</strong></td>
-
+                                            <td>@apartment.FloorLocation</td>
+                                            <td>@apartment.BlockNumber</td>
+                                            <td>@apartment.ApartmentNumber</td>
+                                            <td>@apartment.Situation</td>
+                                            <td>@apartment.Tenant</td>
+                                            <td>@apartment.Type</td>
                                             <td>
-                                                <a asp-area="Admin" asp-controller="Admin" asp-action="UpdateUser" asp-route-userId="@user.Id" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                <a asp-area="Admin" asp-controller="Admin" asp-action="DeleteUser" asp-route-userId="@user.Id" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                <a asp-area="Admin" asp-controller="Admin" asp-action="UpdateApartment" asp-route-apartmentId="@apartment.Id" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                <a asp-area="Admin" asp-controller="Admin" asp-action="DeleteApartment" asp-route-apartmentId="@apartment.Id" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -67,3 +70,4 @@
 
 <script src="~/vendor/svganimation/vivus.min.js"></script>
 <script src="~/vendor/svganimation/svg.animation.js"></script>
+

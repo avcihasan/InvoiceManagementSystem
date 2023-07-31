@@ -17,6 +17,10 @@ namespace InvoiceManagementSystem.API.Controllers
             _adminService = adminService;
         }
 
+        [HttpGet("[action]/{apartmentId}")]
+        public async Task<IActionResult> GetApartment([FromRoute] int apartmentId)
+       => Ok(await _adminService.GetApartmentByIdAsync(apartmentId));
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetApartments()
           => Ok(await _adminService.GetAllApartentsAsync());
@@ -56,8 +60,8 @@ namespace InvoiceManagementSystem.API.Controllers
         public async Task<IActionResult> GetAllMessages()
          => Ok(await _adminService.GetAllMessagesAsync());
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> CreateInvoice(decimal invoicePrice)
+        [HttpGet("[action]")]
+        public async Task<IActionResult> CreateInvoice([FromQuery]decimal invoicePrice)
         {
             await _adminService.CreateInvoiceAsync(invoicePrice);
             return Ok();
