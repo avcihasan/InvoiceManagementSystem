@@ -10,6 +10,6 @@ namespace InvoiceManagementSystem.Application.DTOs.MessageDTOs
     public class CreateMessageDto
     {
         public string Body { get; set; }
-        public string UserId { get; set; }
+        public string UserName{ get; set; }
     }
 }

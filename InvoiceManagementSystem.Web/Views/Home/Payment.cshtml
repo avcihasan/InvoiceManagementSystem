@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Payment";
+}
+
+@model PaymentVM
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 order-md-1">
+                    <form asp-controller="Home" asp-action="Payment" method="post">
+                        <h4 class="mb-3">Ödeme Sayfası</h4>
+                        <hr />
+                        <div class="custom-control custom-radio">
+                            <input id="Price" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                            <label class="custom-control-label" for="Price">₺@TempData["InvoicePrice"]</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-name">Kredi Kart Tipi</label>
+                                <input asp-for="@Model.CreditCard.CardType" type="text" class="form-control" id="cc-name" placeholder="" required="">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-number">Kredi Kart Numarası</label>
+                                <input asp-for="@Model.CreditCard.CardNumber" type="text" class="form-control" id="cc-number" placeholder="" required="">
+                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-expiration">Tarih</label>
+                                <input asp-for="@Model.CreditCard.ExpirationDate" type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                                
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-expiration">CVV</label>
+                                <input asp-for="@Model.CreditCard.Cvv" type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">
+                           Ödemeyi Tamamla
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 using InvoiceManagementSystem.Web.Areas.Admin.Services.Abstractions;
 using InvoiceManagementSystem.Web.Areas.Admin.Services.Concretes;
+using InvoiceManagementSystem.Web.Services.Abstractions;
+using InvoiceManagementSystem.Web.Services.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ builder.Services.AddHttpClient<IAdminService, AdminService>(opts =>
     opts.BaseAddress = new Uri(string.Concat("http://localhost:5194", "/api/"));
 });
 
+builder.Services.AddHttpClient<IUserService, UserService>(opts => opts.BaseAddress = new Uri(string.Concat("http://localhost:5194", "/api/")));
 
 var app = builder.Build();
 

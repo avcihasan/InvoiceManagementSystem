@@ -13,10 +13,11 @@ namespace InvoiceManagementSystem.Application.Abstractions.Services
 {
     public interface  IUserService
     {
-        Task<List<GetInvoiceDto>> GetInvoicesAsync(string userId);
+        Task<List<GetInvoiceDto>> GetInvoicesAsync(string userName);
+        Task<GetInvoiceDto> GetInvoiceByIdAsync(int invoiceId);
         Task PaymentAsync(CreditCardDto creditCard, int invoiceId);
         Task SendMessageAsync(CreateMessageDto messageDto);
-        Task<List<GetApartmentDto>> GetApartmentAsync(string userId);
-        Task<GetUserDto> GetUserAsync(string userId);
+        Task<List<GetApartmentDto>> GetApartmentAsync(string userName);
+        Task<GetUserDto> GetUserAsync(string userName);
     }
 }

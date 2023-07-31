@@ -39,9 +39,9 @@ namespace InvoiceManagementSystem.API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetUsers()
           => Ok(await _adminService.GetAllUsersAsync());
-        [HttpGet("[action]/{userId}")]
-        public async Task<IActionResult> GetUser([FromRoute]string userId)
-        => Ok(await _adminService.GetUserByIdAsync(userId));
+        [HttpGet("[action]/{userName}")]
+        public async Task<IActionResult> GetUser([FromRoute]string userName)
+        => Ok(await _adminService.GetUserByIdAsync(userName));
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDto userDto)
             => Ok(await _adminService.CreateUserAsync(userDto));
@@ -50,10 +50,10 @@ namespace InvoiceManagementSystem.API.Controllers
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto userDto)
             => Ok(await _adminService.UpdateUserAsync(userDto));
 
-        [HttpDelete("[action]/{userId}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] string userId)
+        [HttpDelete("[action]/{userName}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] string userName)
         {
-            await _adminService.DeleteUserAsync(userId);
+            await _adminService.DeleteUserAsync(userName);
             return Ok();
         }
         [HttpGet("[action]")]

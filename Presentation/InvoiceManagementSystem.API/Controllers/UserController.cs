@@ -17,9 +17,12 @@ namespace InvoiceManagementSystem.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet("[action]/{userId}")]
-        public async Task<IActionResult> GetInvoices([FromRoute] string userId)
-            => Ok(await _userService.GetInvoicesAsync(userId));
+        [HttpGet("[action]/{userName}")]
+        public async Task<IActionResult> GetInvoices([FromRoute] string userName)
+            => Ok(await _userService.GetInvoicesAsync(userName));
+        [HttpGet("[action]/{invoiceId}")]
+        public async Task<IActionResult> GetInvoice([FromRoute] int invoiceId)
+            => Ok(await _userService.GetInvoiceByIdAsync(invoiceId));
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Payment([FromBody] CreditCardDto creditCard, [FromQuery] int invoiceId)

@@ -36,27 +36,27 @@ namespace InvoiceManagementSystem.Persistence.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<GetApartmentDto>> GetApartmentAsync(string userId)
+        public async Task<List<GetApartmentDto>> GetApartmentAsync(string userName)
              => _mapper.Map<List<GetApartmentDto>>(await _unitOfWork.ApartmentRepository
                  .Table
                  .Include(x => x.Invoices)
                  .Include(x => x.User)
-                 .Where(x => x.User.Id == userId)
+                 .Where(x => x.User.UserName == userName)
                  .ToListAsync());
 
-        public async Task<List<GetInvoiceDto>> GetInvoicesAsync(string userId)
-        {
-            var xxxxxx = _mapper.Map<List<GetInvoiceDto>>(await _unitOfWork.InvoiceRepository
+        public async Task<GetInvoiceDto> GetInvoiceByIdAsync(int invoiceId)
+            => _mapper.Map<GetInvoiceDto>(await _unitOfWork.InvoiceRepository.GetAsync(invoiceId));
+
+        public async Task<List<GetInvoiceDto>> GetInvoicesAsync(string userName)
+            => _mapper.Map<List<GetInvoiceDto>>(await _unitOfWork.InvoiceRepository
                 .Table
                 .Include(x => x.Apartment)
                 .ThenInclude(x => x.User)
-                .Where(x => x.Apartment.User.Id == userId && !x.Payment)
+                .Where(x => x.Apartment.User.Name == userName && !x.Payment)
                 .ToListAsync());
-            return xxxxxx;
-        }
 
-        public async Task<GetUserDto> GetUserAsync(string userId)
-            => _mapper.Map<GetUserDto>(await _userManager.FindByIdAsync(userId));
+        public async Task<GetUserDto> GetUserAsync(string userName)
+            => _mapper.Map<GetUserDto>(await _userManager.FindByNameAsync(userName));
 
         public async Task PaymentAsync(CreditCardDto creditCard, int invoiceId)
         {
@@ -80,7 +80,7 @@ namespace InvoiceManagementSystem.Persistence.Services
         public async Task SendMessageAsync(CreateMessageDto messageDto)
         {
             Message message = _mapper.Map<Message>(messageDto);
-            message.User = await _userManager.FindByIdAsync(messageDto.UserId);
+            message.User = await _userManager.FindByNameAsync(messageDto.UserName);
             await _unitOfWork.MessageRepository.CreateAsync(message);
             await _unitOfWork.SaveAsync();
         }

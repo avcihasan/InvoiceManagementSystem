@@ -19,23 +19,23 @@ namespace Payment.API.Services.Concretes
 
         public async Task<ResponseDto> PaymentAsync(PaymentDto paymentDto)
         {
-            CreditCard creditCard = await _creditCardCollection.Find(x => x.Cvv == paymentDto.CreditCard.Cvv && x.CardNumber==paymentDto.CreditCard.CardNumber && x.ExpirationDate==paymentDto.CreditCard.ExpirationDate).FirstOrDefaultAsync();
+            CreditCard creditCard = await _creditCardCollection.Find(x => x.Cvv == paymentDto.CreditCard.Cvv && x.CardNumber == paymentDto.CreditCard.CardNumber && x.ExpirationDate == paymentDto.CreditCard.ExpirationDate).FirstOrDefaultAsync();
             if (creditCard is null)
                 return new() { IsSuccess = false, Description = "Hata Oluştu" };
-            if(creditCard.Balance<paymentDto.Price)
+            if (creditCard.Balance < paymentDto.Price)
                 return new() { IsSuccess = false, Description = "Bakiye Yetersiz" };
 
             creditCard.Balance -= paymentDto.Price;
             ReplaceOneResult result = _creditCardCollection.ReplaceOne(x => x.Id == creditCard.Id, creditCard);
-            if(result.ModifiedCount<=0)
+            if (result.ModifiedCount <= 0)
                 return new() { IsSuccess = false, Description = "Hata Oluştu" };
             return new() { IsSuccess = true, Description = "İşlem Başarılı" };
         }
 
-        public async Task xxx()
+        public  async Task<CreditCard> xxx()
         {
-          await  _creditCardCollection.InsertOneAsync(new() { CardNumber="4444-4444",Balance=5000,CardType="Master",
-          Cvv="444",ExpirationDate="11/2023"});
+            CreditCard creditCard = await _creditCardCollection.Find(x => x.CardNumber == "4444-4444" && x.Cvv == "444").FirstOrDefaultAsync();
+            return creditCard;
         }
     }
 
