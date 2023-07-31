@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient<IUserService, UserService>(opts =>
+builder.Services.AddHttpClient<IPaymentService, PaymentService>(opts =>
 {
     opts.BaseAddress = new Uri(string.Concat("http://localhost:5198", "/api/"));
 });

@@ -6,6 +6,5 @@ namespace Payment.API.Services.Abstractions
     public interface IPaymnetService
     {
         Task<ResponseDto> PaymentAsync(PaymentDto paymentDto);
-        Task<CreditCard> xxx();
     }
 }

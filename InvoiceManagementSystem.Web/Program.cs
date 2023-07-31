@@ -8,12 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient<IAdminService, AdminService>(opts =>
-{
-    opts.BaseAddress = new Uri(string.Concat("http://localhost:5194", "/api/"));
-});
 
-builder.Services.AddHttpClient<IUserService, UserService>(opts => opts.BaseAddress = new Uri(string.Concat("http://localhost:5194", "/api/")));
+Uri baseAddress = new Uri(builder.Configuration["APIUrl"]);
+
+
+builder.Services.AddHttpClient<IApartmentService, ApartmentService>(opts => opts.BaseAddress = baseAddress);
+builder.Services.AddHttpClient<IInvoiceService, InvoiceService>(opts => opts.BaseAddress = baseAddress);
+builder.Services.AddHttpClient<IMessageService, MessageService>(opts => opts.BaseAddress = baseAddress);
+builder.Services.AddHttpClient<IPaymentService, PaymentService>(opts => opts.BaseAddress = baseAddress);
+builder.Services.AddHttpClient<IUserService, UserService>(opts => opts.BaseAddress = baseAddress);
+
 
 var app = builder.Build();
 

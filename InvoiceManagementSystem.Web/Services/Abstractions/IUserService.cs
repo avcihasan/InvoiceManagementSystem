@@ -1,12 +1,15 @@
-﻿using InvoiceManagementSystem.Web.Models;
+﻿using InvoiceManagementSystem.Web.Areas.Admin.Models;
+using InvoiceManagementSystem.Web.Models;
 
 namespace InvoiceManagementSystem.Web.Services.Abstractions
 {
     public interface IUserService
     {
-        Task<List<GetInvoiceVM>> GetInvoicesAsync(string username);
-        Task<GetInvoiceVM> GetInvoiceAsync(int invoiceId);
-        Task PaymentAsync(CreditCardVM creditCard, int invoiceId);
-        Task SendMessageAsync(CreateMessageVM createMessage);
+        Task<GetUserVM> CreateUserAsync(CreateUserVM userVM);
+        Task<GetUserVM> GetUserAsync(string userId);
+        Task<GetUserVM> UpdateUserAsync(UpdateUserVM userVM);
+        Task<List<GetUserVM>> GetAllUsersAsync();
+        Task DeleteUserAsync(string userName);
+        Task<List<DebtVM>> GetDebtListAsync();
     }
 }

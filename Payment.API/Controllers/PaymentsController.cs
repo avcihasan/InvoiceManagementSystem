@@ -21,11 +21,5 @@ namespace Payment.API.Controllers
         {
             return Ok(await _paymnetService.PaymentAsync(paymentDto));
         }
-
-        [HttpGet]
-        public async Task<IActionResult> get()
-        {
-            return Ok(await _paymnetService.xxx());
-        }
     }
 }

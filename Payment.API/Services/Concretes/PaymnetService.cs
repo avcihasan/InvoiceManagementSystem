@@ -31,12 +31,7 @@ namespace Payment.API.Services.Concretes
                 return new() { IsSuccess = false, Description = "Hata Oluştu" };
             return new() { IsSuccess = true, Description = "İşlem Başarılı" };
         }
-
-        public  async Task<CreditCard> xxx()
-        {
-            CreditCard creditCard = await _creditCardCollection.Find(x => x.CardNumber == "4444-4444" && x.Cvv == "444").FirstOrDefaultAsync();
-            return creditCard;
-        }
+       
     }
 
 }

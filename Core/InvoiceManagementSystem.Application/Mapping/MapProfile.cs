@@ -29,7 +29,7 @@ namespace InvoiceManagementSystem.Application.Mapping
             CreateMap<CreateUserDto, GetUserDto>();
             CreateMap<UpdateUserDto, AppUser>();
             CreateMap<UpdateUserDto, GetUserDto>();
-            CreateMap<AppUser, GetUserDto>(); 
+            CreateMap<AppUser, GetUserDto>().ReverseMap(); 
 
             CreateMap<Payment, GetPaymentDto>(); 
             CreateMap<Message, GetMessageDto>(); 

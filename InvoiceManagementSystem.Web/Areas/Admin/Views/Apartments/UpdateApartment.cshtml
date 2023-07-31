@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateApartment";
+}
+@model UpdateApartmentVM
+<div class="col-xl-10 offset-xl-1 col-xxl-10 offset-xcl-1 col-lg-10 offset-lg-1 ">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Horizontal Form</h4>
+        </div>
+        <div class="card-body">
+            <div class="basic-form">
+                <form asp-area="Admin" asp-controller="Apartments" asp-action="UpdateApartment" method="post">
+                  
+                    <div class="form-row">
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <div class="form-group col-md-6">
+                            <label for="FloorLocation" asp-for="@Model.FloorLocation"></label>
+                            <input id="FloorLocation" type="number" class="form-control" asp-for="@Model.FloorLocation">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="ApartmentNumber" asp-for="@Model.ApartmentNumber"></label>
+                            <input id="ApartmentNumber" type="number" class="form-control" asp-for="@Model.ApartmentNumber">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="BlockNumber" asp-for="@Model.BlockNumber"></label>
+                            <input id="BlockNumber" type="number" class="form-control" asp-for="@Model.BlockNumber">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Type" asp-for="@Model.Type"></label>
+                            <input id="Type" type="text" class="form-control" asp-for="@Model.Type">
+                        </div>
+
+                        <div class="form-group  col-md-6">
+                            <div class="form-check mb-2">
+                                <input asp-for="@Model.Tenant" type="checkbox" class="form-check-input" id="Tenant" value="" checked="">
+                                <label class="form-check-label" for="Tenant" asp-for="@Model.Tenant"></label>
+                            </div>
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <div class="form-check mb-2">
+                                <input asp-for="@Model.Situation" type="checkbox" class="form-check-input" id="Situation" value="" checked="">
+                                <label class="form-check-label" for="Situation" asp-for="@Model.Situation"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 offset-md-5 text-center">
+                        <input type="submit" class="btn btn-primary" value="Kaydet">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

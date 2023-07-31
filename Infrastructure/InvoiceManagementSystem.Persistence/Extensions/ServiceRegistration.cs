@@ -17,8 +17,13 @@ namespace InvoiceManagementSystem.Persistence.Extensions
             service.AddDbContext<InvoiceManagementSystemDbContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("SqlServer"))
             );
            
-            service.AddScoped<IAdminService, AdminService>();
             service.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            service.AddScoped<IApartmentService, ApartmentService>();
+            service.AddScoped<IInvoiceService, InvoiceService>();
+            service.AddScoped<IMessageService, MessageService>();
+            service.AddScoped<IPaymentService, PaymentService>();
+            service.AddScoped<IUserService, UserService>();
         }
     }
 }

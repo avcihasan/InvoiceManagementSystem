@@ -26,63 +26,80 @@ namespace InvoiceManagementSystem.Persistence.Services
         readonly IUnitOfWork _unitOfWork;
         readonly IMapper _mapper;
         readonly UserManager<AppUser> _userManager;
-        readonly HttpClient _httpClient;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, HttpClient httpClient)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
-            _httpClient = httpClient;
         }
 
-        public async Task<List<GetApartmentDto>> GetApartmentAsync(string userName)
-             => _mapper.Map<List<GetApartmentDto>>(await _unitOfWork.ApartmentRepository
-                 .Table
-                 .Include(x => x.Invoices)
-                 .Include(x => x.User)
-                 .Where(x => x.User.UserName == userName)
-                 .ToListAsync());
 
-        public async Task<GetInvoiceDto> GetInvoiceByIdAsync(int invoiceId)
-            => _mapper.Map<GetInvoiceDto>(await _unitOfWork.InvoiceRepository.GetAsync(invoiceId));
 
-        public async Task<List<GetInvoiceDto>> GetInvoicesAsync(string userName)
-            => _mapper.Map<List<GetInvoiceDto>>(await _unitOfWork.InvoiceRepository
-                .Table
-                .Include(x => x.Apartment)
-                .ThenInclude(x => x.User)
-                .Where(x => x.Apartment.User.Name == userName && !x.Payment)
-                .ToListAsync());
-
-        public async Task<GetUserDto> GetUserAsync(string userName)
-            => _mapper.Map<GetUserDto>(await _userManager.FindByNameAsync(userName));
-
-        public async Task PaymentAsync(CreditCardDto creditCard, int invoiceId)
+        public async Task<GetUserDto> GetUserByUserNameOrIdAsync(string userNameOrId)
         {
-            Invoice invoice = await _unitOfWork.InvoiceRepository
-                .Table
-                .Include(x => x.Apartment)
-                .ThenInclude(x => x.User).FirstOrDefaultAsync(x => x.Id == invoiceId);
+            AppUser user = await _userManager.FindByNameAsync(userNameOrId);
+            user ??= await _userManager.FindByNameAsync(userNameOrId);
+            if (user is null)
+                throw new Exception("Hata");
+            return _mapper.Map<GetUserDto>(user);
+        }
 
-            PaymentDto paymetDto = new() {CreditCard=creditCard,Price= invoice.Price };
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync<PaymentDto>("payments", paymetDto);
-            if (!response.IsSuccessStatusCode)
+        public async Task<GetUserDto> CreateUserAsync(CreateUserDto userDto)
+        {
+            AppUser user = _mapper.Map<AppUser>(userDto);
+            user.Id = Guid.NewGuid().ToString();
+            user.Apartments.Add(await _unitOfWork.ApartmentRepository.GetAsync(userDto.ApartmentId));
+            IdentityResult result = await _userManager.CreateAsync(user, userDto.Password);
+            if (!result.Succeeded)
                 throw new Exception("hata");
-            if (!( await response.Content.ReadFromJsonAsync<PaymentResponseDto>()).IsSuccess)
-                throw new Exception((await response.Content.ReadFromJsonAsync<PaymentResponseDto>()).Description);
-           
-            invoice.Payment = true;
-            await _unitOfWork.SaveAsync();
-
+            return _mapper.Map<GetUserDto>(userDto);
         }
-
-        public async Task SendMessageAsync(CreateMessageDto messageDto)
+        public async Task DeleteUserAsync(string userId)
         {
-            Message message = _mapper.Map<Message>(messageDto);
-            message.User = await _userManager.FindByNameAsync(messageDto.UserName);
-            await _unitOfWork.MessageRepository.CreateAsync(message);
-            await _unitOfWork.SaveAsync();
+            AppUser user = await _userManager.FindByIdAsync(userId) ?? throw new Exception("hata");
+            IdentityResult result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+                throw new Exception("hata");
         }
+        public async Task<List<GetUserDto>> GetAllUsersAsync()
+            => _mapper.Map<List<GetUserDto>>(await _userManager.Users.ToListAsync());
+        public async Task<GetUserDto> UpdateUserAsync(UpdateUserDto userDto)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userDto.Id);
+            user.TCNo = userDto.TCNo;
+            user.Name = userDto.Name;
+            user.Surname = userDto.Surname;
+            user.CarPlateNumber = userDto.CarPlateNumber;
+            user.PhoneNumber = userDto.PhoneNumber;
+            user.Email = userDto.Email;
+            user.UserName = userDto.UserName;
+
+            IdentityResult result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                throw new Exception("hata");
+
+            await _userManager.UpdateSecurityStampAsync(user);
+            return _mapper.Map<GetUserDto>(userDto);
+        }
+        public async Task<List<DebtDto>> GetDebtListAsync()
+        {
+            List<DebtDto> debtList = new();
+
+            (await _unitOfWork.ApartmentRepository.Table.Include(x => x.User).Include(x => x.Invoices).ToListAsync()).ForEach(x =>
+            {
+                DebtDto debt = new()
+                {
+                    User = _mapper.Map<GetUserDto>(x.User),
+                    TotalDebt = 0
+                };
+                x.Invoices.Where(x => x.Payment == false).ToList().ForEach(x => debt.TotalDebt += x.Price);
+                if (debt.TotalDebt > 0)
+                    debtList.Add(debt);
+            });
+
+            return debtList;
+        }
+
     }
 }
